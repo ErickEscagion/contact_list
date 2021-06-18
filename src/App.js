@@ -1,12 +1,16 @@
 import './App.css';
 import{ BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Buttons from './components/Buttons';
+import Register from './components/Register';
+import Change from './components/Change';
 function App() {
   return (
     <Router>
       <div className="App">
         <Switch>
           <Route path="/" exact component={Buttons} />
+          <Route path="/register" exact component={Register} />
+          <Route path="/change" exact component={Change} />
         </Switch>
       </div>
     </Router>

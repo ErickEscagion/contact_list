@@ -1,36 +1,40 @@
-import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Register from './Register';
-export default class Buttons extends Component {
+import React, {useState} from 'react'
+import{Redirect} from 'react-router-dom'
+import Table from './Table';
 
-    register() {
-        console.log("Registrar");
-        return (
-            <Router>
-                <div className="App">
-                    <Buttons></Buttons>
-                    <Switch>
-                        <Route path="/register" exact component={Register} />
-                    </Switch>
-                </div>
-            </Router>
-        );
+const Buttons = () =>{
+
+    const [redirectToRegister, setRedirectToRegister] = useState(false);
+    const [redirectToChange, setRedirectToChange] = useState(false);
+
+    const register = () =>{
+        setRedirectToRegister(true);
     }
 
-    change() {
-        console.log("Alterar");
+    const change = () =>{
+        setRedirectToChange(true);
     }
 
-    delete() {
-        console.log("Excluir");
+    const renderRedirect = () =>{
+        if(redirectToRegister === true){
+            return <Redirect to='/register'/>;
+        }else if(redirectToChange === true){
+            return <Redirect to='/change'/>;
+        }
+        return null;
     }
-    render() {
-        return (
-            <div className="buttons">
-                <input type="button" value="Cadastrar" onClick={this.register}></input>
-                <input type="button" value="Alterar" onClick={this.change}></input>
-                <input type="button" value="Excluir" onClick={this.delete}></input>
-            </div> 
-        )
-    }
-}
+
+    return (
+        <>
+        {renderRedirect()}
+        <div className="buttons">
+            <input type="button" value="Cadastrar" onClick={register}></input>
+            <input type="button" value="Alterar" onClick={change}></input>
+            <input type="button" value="Excluir"></input>
+        </div> 
+        <Table></Table>
+        </>
+    )
+} 
+
+export default Buttons;
