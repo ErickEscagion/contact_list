@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import{Redirect} from 'react-router-dom'
 
-const Register = () =>{
+const Change = () =>{
     const [redirectToExit, setRedirectToExit] = useState(false);
 
     const exit = () =>{
@@ -19,9 +19,9 @@ const Register = () =>{
         <>
         {renderRedirect()}
         <div>
-            <h1>Cadastrar</h1>
+            <h1>Alterar</h1>
         </div>
-        <div className="register">
+        <div className="alterar">
             <input type="button" value="Salvar"></input>
             <input type="button" value="Sair" onClick={exit}></input>
         </div>
@@ -29,4 +29,4 @@ const Register = () =>{
     )
 } 
 
-export default Register;
+export default Change;

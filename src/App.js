@@ -1,6 +1,6 @@
 import './App.css';
 import{ BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import Buttons from './components/Buttons';
+import Main from './components/Main';
 import Register from './components/Register';
 import Change from './components/Change';
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <Router>
       <div className="App">
         <Switch>
-          <Route path="/" exact component={Buttons} />
+          <Route path="/" exact component={Main} />
           <Route path="/register" exact component={Register} />
           <Route path="/change" exact component={Change} />
         </Switch>
