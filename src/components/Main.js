@@ -4,8 +4,8 @@ import Table from './Table/Table';
 const Main = () =>{
 
     const data = [
-        { id:1, name:'Erick', telephone:'(15)99818-1242', sex:'M'},
-        { id:2, name:'Laura', telephone:'(15)12345-6789', sex:'F'}
+        { name:'Erick', telephone:'(15)99818-1242', sex:'M'},
+        { name:'Laura', telephone:'(15)12345-6789', sex:'F'}
     ]
 
     const [redirectToRegister, setRedirectToRegister] = useState(false);
@@ -46,8 +46,8 @@ const Main = () =>{
             <input type="button" value="Cadastrar" onClick={register}></input>
             <input type="button" value="Alterar" onClick={change}></input>
             <input type="button" value="Excluir" onClick={del}></input>
-        </div> 
-        <Table data={data} head={head}/>
+            <Table data={data} head={head}/>
+        </div>
         </>
     )
 } 
