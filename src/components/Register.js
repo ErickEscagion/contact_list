@@ -8,6 +8,10 @@ const Register = () =>{
         setRedirectToExit(true);
     }
 
+    const save = () =>{
+        alert("Foi");
+    }
+
     const renderRedirect = () =>{
         if(redirectToExit === true){
             return <Redirect to='/'/>;
@@ -35,10 +39,10 @@ const Register = () =>{
                 <label for="male">Masculino</label>
                 <input type="radio" id="female" name="sex" value="female"/>
                 <label for="female">Femenino</label>
-                <input type="radio" id="other" name="sex" value="other"/>
+                <input type="radio" id="other" name="sex" value="other" checked/>
                 <label for="other">Outros</label>
                 <br/>
-                <input type="button" value="Salvar"></input>
+                <input type="submit" value="Salvar" onClick={save}></input>
                 <input type="button" value="Sair" onClick={exit}></input>
             </form>
         </div>
