@@ -17,7 +17,7 @@ const Row = ({record}) =>{
     const keys = Object.keys(record);
     return (
         <tr key={record.id}>
-            <label><input type="checkbox" /></label>
+            <label><input type="checkbox" id="cb"/></label>
             {
                 keys.map(key => <td key={key}>{record[key]}</td>)
             }
@@ -28,7 +28,7 @@ const Table = ({ data, head }) =>{
     const keys = Object.keys(data[0])
     return (
         <div className="table">
-            <table>
+            <table id="table">
                 <Head keys={keys} head={head} />
                 <tbody>
                     { data.map(record => <Row record={record}/>) }
