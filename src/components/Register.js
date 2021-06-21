@@ -9,7 +9,7 @@ const Register = () =>{
     }
 
     const save = () =>{
-        alert("Foi");
+        alert("Contato Salvo!!");
     }
 
     const renderRedirect = () =>{
