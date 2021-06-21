@@ -12,6 +12,13 @@ const Main = () =>{
     const [redirectToChange, setRedirectToChange] = useState(false);
 
     const register = () =>{
+        /*
+        debugger
+        var table = document.getElementById('table');
+        var cb = document.getElementById('cb');
+        console.log(cb.value); 
+        var tes = document.querySelector('#cb:checked') !== null
+        */
         setRedirectToRegister(true);
     }
 
@@ -20,7 +27,8 @@ const Main = () =>{
     }
 
     const del = (oEvent) =>{
-        console.log("Deleta");
+        //logica de pegar o(s) contato(s) e remove-los
+        alert("Contato Deletado");
     }
 
     const renderRedirect = () =>{
