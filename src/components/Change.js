@@ -18,12 +18,20 @@ const Change = () =>{
     return (
         <>
         {renderRedirect()}
-        <div>
-            <h1>Alterar</h1>
-        </div>
-        <div className="alterar">
-            <input type="button" value="Salvar"></input>
-            <input type="button" value="Sair" onClick={exit}></input>
+        <div id="register" className="registerCSS"> 
+            <form method="post" action=""> 
+                <h1>Alterar</h1> 
+                <label for="name">Nome:</label>
+                <br/>
+                <input required="required" type="text" placeholder="Nome" />
+                <br/>
+                <label for="telephone">Telefone:</label>    
+                <br/>         
+                <input required="required" type="text" placeholder="(xx)xxxxx-xxxx"/> 
+                <br/>
+                <input type="button" value="Salvar"></input>
+                <input type="button" value="Sair" onClick={exit}></input>
+            </form>
         </div>
         </>
     )
