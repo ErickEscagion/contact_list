@@ -8,6 +8,10 @@ const Change = () =>{
         setRedirectToExit(true);
     }
 
+    const change = () =>{
+        alert("Contato Alterado!!");
+    }
+
     const renderRedirect = () =>{
         if(redirectToExit === true){
             return <Redirect to='/'/>;
@@ -29,7 +33,7 @@ const Change = () =>{
                 <br/>         
                 <input required="required" type="text" placeholder="(xx)xxxxx-xxxx"/> 
                 <br/>
-                <input type="button" value="Salvar"></input>
+                <input type="button" value="Salvar" onClick={change}></input>
                 <input type="button" value="Sair" onClick={exit}></input>
             </form>
         </div>
