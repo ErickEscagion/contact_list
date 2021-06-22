@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import{Redirect} from 'react-router-dom'
 import Table from './Table/Table';
-const Main = ({data, toggleSelected}) =>{
+const Main = ({data, toggleSelected, setData}) =>{
 
     const [redirectToRegister, setRedirectToRegister] = useState(false);
     const [redirectToChange, setRedirectToChange] = useState(false);
@@ -28,8 +28,26 @@ const Main = ({data, toggleSelected}) =>{
     }
 
     const del = (oEvent) =>{
-        //logica de pegar o(s) contato(s) e remove-los
-        alert("Contato Deletado");
+        var aux = 0;
+        for(let i = 0; i < data.length; i++){
+            if(data[i].selected === true){
+                aux++;
+            }
+        }
+        if(aux === 0){
+            alert("Selecione um ou mais contato(s)");
+        }else{
+            var newContactlist = [];
+            for(let i = 0; i < data.length; i++){
+            if(data[i].selected === false){
+                newContactlist.push(data[i]);
+            }
+            }
+            debugger
+            console.log(newContactlist);
+            setData(newContactlist);
+            alert("Contato(s) Deletado(s)");
+        }
     }
 
     const renderRedirect = () =>{
@@ -56,7 +74,7 @@ const Main = ({data, toggleSelected}) =>{
             <input type="button" value="Cadastrar" onClick={register}></input>
             <input type="button" value="Alterar" onClick={change}></input>
             <input type="button" value="Excluir" onClick={del}></input>
-            <Table data={data} head={head} toggleSelected={toggleSelected}/>
+            <Table data={data} head={head} toggleSelected={toggleSelected} setData={setData}/>
         </div>
         </>
     )

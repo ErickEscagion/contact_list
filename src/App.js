@@ -67,7 +67,7 @@ function App() {
     <Router>
       <div className="App">
         <Switch>
-          <Route path="/" exact render={(props) => <Main {...props} data={data} toggleSelected={toggleSelected}/>} />
+          <Route path="/" exact render={(props) => <Main {...props} data={data} setData={setData} toggleSelected={toggleSelected}/>} />
           <Route path="/register" exact component={Register} />
           <Route path="/change" exact render={(props) => <Change {...props} selectedLine={selectedLine} changeName={changeName} changeTelephone={changeTelephone}/>} />
 

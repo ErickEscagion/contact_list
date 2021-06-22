@@ -25,17 +25,25 @@ const Row = ({record, toggleSelected}) =>{
     )
 }
 const Table = ({data, head, toggleSelected }) =>{
-    const keys = Object.keys(data[0])
-    return (
-        <div className="table">
-            <table key="table">
-                <Head keys={keys} head={head} />
-                <tbody>
-                    { data.map(record => <Row record={record} toggleSelected={toggleSelected}/>) }
-                </tbody>
-            </table>
-        </div>
-    )
+    if(data.length > 0){
+        const keys = Object.keys(data[0])
+        return (
+            <div className="table">
+                <table key="table">
+                    <Head keys={keys} head={head} />
+                    <tbody>
+                        { data.map(record => <Row record={record} toggleSelected={toggleSelected}/>) }
+                    </tbody>
+                </table>
+            </div>
+        )
+    }else{
+        return (
+            <div className="table">
+                <h1>Sem Dados</h1>
+            </div>
+        )
+    }
 } 
 
 export default Table;
