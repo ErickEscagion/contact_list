@@ -4,7 +4,7 @@ const Head = ({keys, head}) =>{
     const tableHead = head || {}
     return(
         <thead>
-            <tr>
+            <tr key = 'keyHead'>
             <label/>
                 {
                     keys.map(key => <th key={key}>{tableHead[key] || key}</th>)
@@ -13,25 +13,25 @@ const Head = ({keys, head}) =>{
         </thead>
     )
 }
-const Row = ({record}) =>{
+const Row = ({record, toggleSelected}) =>{
     const keys = Object.keys(record);
     return (
         <tr key={record.id}>
-            <label><input type="checkbox" id="cb"/></label>
+            <label key={record.id} ><input type="checkbox" key={record.id} checked={record.selected} onChange={() => toggleSelected(record.id)}/></label>
             {
-                keys.map(key => <td key={key}>{record[key]}</td>)
+                keys.map(key => <td key={key + record.id}>{record[key]}</td>)
             }
         </tr>
     )
 }
-const Table = ({ data, head }) =>{
+const Table = ({data, head, toggleSelected }) =>{
     const keys = Object.keys(data[0])
     return (
         <div className="table">
-            <table id="table">
+            <table key="table">
                 <Head keys={keys} head={head} />
                 <tbody>
-                    { data.map(record => <Row record={record}/>) }
+                    { data.map(record => <Row record={record} toggleSelected={toggleSelected}/>) }
                 </tbody>
             </table>
         </div>
@@ -39,3 +39,5 @@ const Table = ({ data, head }) =>{
 } 
 
 export default Table;
+
+
