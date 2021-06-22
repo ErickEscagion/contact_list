@@ -7,11 +7,6 @@ const Main = ({data, toggleSelected, setData}) =>{
     const [redirectToChange, setRedirectToChange] = useState(false);
 
     const register = () =>{
-        setRedirectToRegister(true);
-    }
-
-    const change = () =>{
-        console.log(data)
         var aux = 0;
         for(let i = 0; i < data.length; i++){
             if(data[i].selected === true){
@@ -19,11 +14,25 @@ const Main = ({data, toggleSelected, setData}) =>{
             }
         }
         if(aux === 0){
-            alert("Selecione um Contato");
+            setRedirectToRegister(true);
+        }else{
+            alert("Não selecione nenhum Contato!");
+        }
+    }
+
+    const change = () =>{
+        var aux = 0;
+        for(let i = 0; i < data.length; i++){
+            if(data[i].selected === true){
+                aux++;
+            }
+        }
+        if(aux === 0){
+            alert("Selecione um Contato!");
         }else if(aux === 1){
             setRedirectToChange(true);
         }else{
-            alert("Selecione somente um Contato");
+            alert("Selecione somente um Contato!");
         }
     }
 
@@ -35,18 +44,17 @@ const Main = ({data, toggleSelected, setData}) =>{
             }
         }
         if(aux === 0){
-            alert("Selecione um ou mais contato(s)");
+            alert("Selecione um ou mais contato(s)!");
         }else{
             var newContactlist = [];
             for(let i = 0; i < data.length; i++){
-            if(data[i].selected === false){
-                newContactlist.push(data[i]);
-            }
+                if(data[i].selected === false){
+                    newContactlist.push(data[i]);
+                }
             }
             debugger
-            console.log(newContactlist);
             setData(newContactlist);
-            alert("Contato(s) Deletado(s)");
+            alert("Contato(s) Deletado(s)!");
         }
     }
 

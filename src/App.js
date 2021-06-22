@@ -61,14 +61,13 @@ function App() {
         selectedLine = data[i];
     }
   }
-  console.log(selectedLine);
 
   return (
     <Router>
       <div className="App">
         <Switch>
           <Route path="/" exact render={(props) => <Main {...props} data={data} setData={setData} toggleSelected={toggleSelected}/>} />
-          <Route path="/register" exact component={Register} />
+          <Route path="/register" exact render={(props) => <Register {...props} data={data} setData={setData}/>} />
           <Route path="/change" exact render={(props) => <Change {...props} selectedLine={selectedLine} changeName={changeName} changeTelephone={changeTelephone}/>} />
 
 
