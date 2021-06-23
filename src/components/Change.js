@@ -10,7 +10,7 @@ const Change = ({selectedLine ,changeName, changeTelephone}) =>{
     const exit = () =>{
         changeName(selectedLine.id, nameBackup);
         changeTelephone(selectedLine.id, telephoneBackup);
-        alert("As Alterações não serão salvas");
+        alert("As Alterações não serão salvas!");
         setRedirectToExit(true);
     }
 
@@ -21,6 +21,7 @@ const Change = ({selectedLine ,changeName, changeTelephone}) =>{
         setNameBackup(selectedLine.name);
         setTelephoneBackup(selectedLine.telephone);
         setInitialized(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [initialized]);
 
 /*
