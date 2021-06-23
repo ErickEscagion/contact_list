@@ -5,6 +5,7 @@ const Register = ({data, setData}) =>{
     const [redirectToExit, setRedirectToExit] = useState(false);
 
     const exit = () =>{
+        alert("A Criação não sera salva!");
         setRedirectToExit(true);
     }
 
