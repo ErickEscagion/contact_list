@@ -1,14 +1,37 @@
-import React, {useState} from 'react'
+import React, { useState , useEffect } from 'react'
 import{Redirect} from 'react-router-dom'
 
-const Change = ({selectedLine, changeName, changeTelephone}) =>{
+debugger
+const Change = ({selectedLine ,changeName, changeTelephone}) =>{
     const [redirectToExit, setRedirectToExit] = useState(false);
+    const [nameBackup, setNameBackup] = useState(null);
+    const [telephoneBackup, setTelephoneBackup] = useState(null);
+    const [initialized, setInitialized]=useState(false);
     const exit = () =>{
+        changeName(selectedLine.id, nameBackup);
+        changeTelephone(selectedLine.id, telephoneBackup);
+        alert("As Alterações não serão salvas");
         setRedirectToExit(true);
     }
 
+    useEffect(()=>{
+        if(initialized){
+            return;
+        }
+        setNameBackup(selectedLine.name);
+        setTelephoneBackup(selectedLine.telephone);
+        setInitialized(true);
+    }, [initialized]);
+
+/*
+    useEffect(() => {
+        setNameBackup(selectedLine.name);
+        setTelephoneBackup(selectedLine.telephone);
+        
+    },[!changeTelephone, !changeName]);
+*/
+
     const change = () =>{
-        //alert("Contato Alterado!!");
         setTimeout(function(){ 
             setRedirectToExit(true);
             if(redirectToExit === true){
