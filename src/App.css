@@ -1,3 +1,23 @@
-.App {
+* {
+  box-sizing: border-box;
   text-align: center;
+  margin: auto;
 }
+
+:root{
+  --color1 : #320b09;
+  --color2 : #573612;
+  --color3 : #2ba0c8;
+  --color4 : #2bc5c8;
+  --color5 : #98dfdf;
+}
+
+body{
+  font-family: sans-serif;
+  background-color: var(--color3);
+}
+
+.table{
+  background-color:  var(--color5);
+}
+
