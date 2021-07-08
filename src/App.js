@@ -4,13 +4,11 @@ import Main from './components/Main';
 import Register from './components/Register';
 import Change from './components/Change';
 import React, {useState} from 'react'
+import { connect } from 'react-redux';
 
-function App() {
+function App(props) {
 
-  const [data, setData] = useState([
-    { id: 1, name:'Erick', telephone:'(15)99818-1242', sex:'M', selected:false},
-    { id: 2, name:'Laura', telephone:'(15)12345-6789', sex:'F', selected:false}
-  ]);
+  const [data, setData] = useState(props.dataRedux);
 
   const toggleSelected = (id) =>{
     var aux = {...data}
@@ -77,4 +75,11 @@ function App() {
   );
 }
 
-export default App;
+function mapStateToProps(state){
+  //console.log(state)
+  return {
+      dataRedux: state.data,
+  }
+}
+
+export default connect(mapStateToProps)(App);

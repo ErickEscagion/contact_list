@@ -1,7 +1,6 @@
 import React, { useState , useEffect } from 'react'
 import{Redirect} from 'react-router-dom'
 
-debugger
 const Change = ({selectedLine ,changeName, changeTelephone}) =>{
     const [redirectToExit, setRedirectToExit] = useState(false);
     const [nameBackup, setNameBackup] = useState(null);

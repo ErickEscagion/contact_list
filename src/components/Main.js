@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import{Redirect} from 'react-router-dom'
 import Table from './Table/Table';
+
 const Main = ({data, toggleSelected, setData}) =>{
 
     const [redirectToRegister, setRedirectToRegister] = useState(false);
