@@ -1,7 +1,11 @@
 import React, {useState} from 'react'
+import { connect } from 'react-redux';
 import{Redirect} from 'react-router-dom'
+import { saveContact } from '../store/actions/crud'
 
-const Register = ({data, setData}) =>{
+const Register = ( ...props) =>{
+    var data = props[0].dataRedux;
+
     const [redirectToExit, setRedirectToExit] = useState(false);
 
     const exit = () =>{
@@ -14,9 +18,7 @@ const Register = ({data, setData}) =>{
         return brazilianPhoneRegex.test(phone);
     };
 
-
     const save = () =>{
-        debugger
         var inputName = document.querySelector("#name").value;
         if(inputName.length < 3){
             alert("Nome deve ter no minimo 3 Letras!");
@@ -39,21 +41,17 @@ const Register = ({data, setData}) =>{
         }else{
             id = (data[length-1].id + 1)
         }
-        var contacts = []
         var newContact = {id: id, name:inputName, telephone:inputTelephone, sex:inputSex, selected:false}
-        for(let i = 0; i < length; i++){
-            contacts.push(data[i]);
-        }
-        contacts.push(newContact)
-        setData(contacts)
+        props[0].CREATE(newContact)
+
         //alert("Contato Salvo!");
-        console.log(data)
         setTimeout(function(){ 
             setRedirectToExit(true);
             if(redirectToExit === true){
                 return <Redirect to='/'/>;
             }
         }, 200);
+
     }
 
     const renderRedirect = () =>{
@@ -93,5 +91,22 @@ const Register = ({data, setData}) =>{
         </>
     )
 } 
+function mapStateToProps(state){
+    return {
+        dataRedux: state.data,
+    }
+  }
 
-export default Register;
+function mapDispatchToProps (dispatch){
+    return {
+        CREATE(newContact) {
+            const action = saveContact(newContact)
+            dispatch(action)
+        }
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Register);

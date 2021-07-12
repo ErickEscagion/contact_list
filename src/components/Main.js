@@ -2,6 +2,14 @@ import React, {useState} from 'react'
 import{Redirect} from 'react-router-dom'
 import Table from './Table/Table';
 
+const head = {
+    id: 'Codigo',
+    name: 'Nome',
+    telephone: 'Telefone',
+    sex: 'Sexo',
+    selected: ' ',
+}
+
 const Main = ({data, toggleSelected, setData}) =>{
 
     const [redirectToRegister, setRedirectToRegister] = useState(false);
@@ -66,14 +74,6 @@ const Main = ({data, toggleSelected, setData}) =>{
             return <Redirect to='/change'/>;
         }
         return null;
-    }
-
-    const head = {
-        id: 'Codigo',
-        name: 'Nome',
-        telephone: 'Telefone',
-        sex: 'Sexo',
-        selected: ' ',
     }
 
     return (

@@ -3,12 +3,12 @@ import{ BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Main from './components/Main';
 import Register from './components/Register';
 import Change from './components/Change';
-import React, {useState} from 'react'
+import React from 'react'
 import { connect } from 'react-redux';
 
 function App(props) {
-
-  const [data, setData] = useState(props.dataRedux);
+  console.log(props)
+  var data = props.dataRedux;
 
   const toggleSelected = (id) =>{
     var aux = {...data}
@@ -21,7 +21,7 @@ function App(props) {
     if(!Array.isArray(aux)){
         aux = Object.values(aux)
     }
-    setData(aux);
+    //setData(aux);
   }
 
   const changeName = (id, name) =>{
@@ -35,7 +35,7 @@ function App(props) {
     if(!Array.isArray(aux)){
         aux = Object.values(aux)
     }
-    setData(aux);
+    //setData(aux);
   }
 
   const changeTelephone = (id, telephone) =>{
@@ -49,7 +49,7 @@ function App(props) {
     if(!Array.isArray(aux)){
         aux = Object.values(aux)
     }
-    setData(aux);
+    //setData(aux);
   }
 
   var selectedLine = {}
@@ -64,11 +64,9 @@ function App(props) {
     <Router>
       <div className="App">
         <Switch>
-          <Route path="/" exact render={(props) => <Main {...props} data={data} setData={setData} toggleSelected={toggleSelected}/>} />
-          <Route path="/register" exact render={(props) => <Register {...props} data={data} setData={setData}/>} />
+          <Route path="/" exact render={(props) => <Main {...props} data={data} toggleSelected={toggleSelected}/>} />
+          <Route path="/register" exact render={(props) => <Register {...props} />} />
           <Route path="/change" exact render={(props) => <Change {...props} selectedLine={selectedLine} changeName={changeName} changeTelephone={changeTelephone}/>} />
-
-
         </Switch>
       </div>
     </Router>
