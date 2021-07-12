@@ -19,7 +19,7 @@ export default function(state = initialState, action){
         case DELETE_CONTACT:
             var newContactlist = []
             for(let i = 0; i < state.length; i++){
-                if(state[i].id !== action.payload[0]){
+                if(state[i].id !== action.payload){
                     newContactlist.push(state[i])
                 }
             }

@@ -50,17 +50,13 @@ const Main = (props) =>{
         }
         if(aux === 0){
             alert("Selecione um contato!");
-        }else if (aux === 1){
-            var listIndicesExclude = [];
+        }else{
             for(let i = 0; i < data.length; i++){
                 if(data[i].selected === true){
-                    listIndicesExclude.push(data[i].id);
+                    props.DELETE(data[i].id)
                 }
             }
-            props.DELETE(listIndicesExclude)
-            alert("Contato Deletado!");
-        }else{
-            alert("Selecione apenas um contato!");
+            alert("Contato(s) Deletado(s)!");
         }
     }
 
