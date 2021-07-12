@@ -86,7 +86,6 @@ const Main = (props) =>{
     )
 } 
 function mapStateToProps(state){
-    //console.log(state)
     return {
         dataRedux: state.data,
     }
