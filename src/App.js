@@ -7,9 +7,10 @@ import React from 'react'
 import { connect } from 'react-redux';
 
 function App(props) {
-  console.log(props)
-  var data = props.dataRedux;
+  //console.log(props)
+  //var data = props.dataRedux;
 
+  /*
   const toggleSelected = (id) =>{
     var aux = {...data}
     var length = Object.keys(aux).length
@@ -59,14 +60,14 @@ function App(props) {
         selectedLine = data[i];
     }
   }
-
+*/
   return (
     <Router>
       <div className="App">
         <Switch>
-          <Route path="/" exact render={(props) => <Main {...props} data={data} toggleSelected={toggleSelected}/>} />
+          <Route path="/" exact render={(props) => <Main {...props} />} />
           <Route path="/register" exact render={(props) => <Register {...props} />} />
-          <Route path="/change" exact render={(props) => <Change {...props} selectedLine={selectedLine} changeName={changeName} changeTelephone={changeTelephone}/>} />
+          <Route path="/change" exact render={(props) => <Change {...props} />} />
         </Switch>
       </div>
     </Router>
@@ -74,7 +75,6 @@ function App(props) {
 }
 
 function mapStateToProps(state){
-  //console.log(state)
   return {
       dataRedux: state.data,
   }

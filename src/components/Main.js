@@ -1,16 +1,12 @@
 import React, {useState} from 'react'
 import{Redirect} from 'react-router-dom'
 import Table from './Table/Table';
+import { connect } from 'react-redux';
+import { deleteContact } from '../store/actions/crud';
 
-const head = {
-    id: 'Codigo',
-    name: 'Nome',
-    telephone: 'Telefone',
-    sex: 'Sexo',
-    selected: ' ',
-}
+const Main = (props) =>{
 
-const Main = ({data, toggleSelected, setData}) =>{
+    var data = props.dataRedux;
 
     const [redirectToRegister, setRedirectToRegister] = useState(false);
     const [redirectToChange, setRedirectToChange] = useState(false);
@@ -53,17 +49,18 @@ const Main = ({data, toggleSelected, setData}) =>{
             }
         }
         if(aux === 0){
-            alert("Selecione um ou mais contato(s)!");
-        }else{
-            var newContactlist = [];
+            alert("Selecione um contato!");
+        }else if (aux === 1){
+            var listIndicesExclude = [];
             for(let i = 0; i < data.length; i++){
-                if(data[i].selected === false){
-                    newContactlist.push(data[i]);
+                if(data[i].selected === true){
+                    listIndicesExclude.push(data[i].id);
                 }
             }
-            debugger
-            setData(newContactlist);
-            alert("Contato(s) Deletado(s)!");
+            props.DELETE(listIndicesExclude)
+            alert("Contato Deletado!");
+        }else{
+            alert("Selecione apenas um contato!");
         }
     }
 
@@ -83,10 +80,25 @@ const Main = ({data, toggleSelected, setData}) =>{
             <input type="button" value="Cadastrar" onClick={register}></input>
             <input type="button" value="Alterar" onClick={change}></input>
             <input type="button" value="Excluir" onClick={del}></input>
-            <Table data={data} head={head} toggleSelected={toggleSelected} setData={setData}/>
+            <Table {...props}/>
         </div>
         </>
     )
 } 
+function mapStateToProps(state){
+    //console.log(state)
+    return {
+        dataRedux: state.data,
+    }
+}
 
-export default Main;
+function mapDispatchToProps (dispatch){
+    return {
+        DELETE(listIndicesExclude) {
+            const action = deleteContact(listIndicesExclude)
+            dispatch(action)
+        }
+    }
+}
+  
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

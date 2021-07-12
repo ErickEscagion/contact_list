@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { connect } from 'react-redux';
-import{Redirect} from 'react-router-dom'
+import{ Redirect } from 'react-router-dom'
 import { saveContact } from '../store/actions/crud'
 
 const Register = ( ...props) =>{
@@ -43,8 +43,7 @@ const Register = ( ...props) =>{
         }
         var newContact = {id: id, name:inputName, telephone:inputTelephone, sex:inputSex, selected:false}
         props[0].CREATE(newContact)
-
-        //alert("Contato Salvo!");
+        
         setTimeout(function(){ 
             setRedirectToExit(true);
             if(redirectToExit === true){
@@ -90,7 +89,8 @@ const Register = ( ...props) =>{
         </div>
         </>
     )
-} 
+}
+
 function mapStateToProps(state){
     return {
         dataRedux: state.data,

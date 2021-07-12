@@ -1,8 +1,22 @@
-import { CREATE_CONTACT } from "./actionTypes"
+import { CREATE_CONTACT, TOGGLE_SELECTED, DELETE_CONTACT } from "./actionTypes"
 
 export function saveContact(newContact){
     return {
         type: CREATE_CONTACT,
         payload: newContact
+    }
+}
+
+export function selected(contacts){
+    return {
+        type: TOGGLE_SELECTED,
+        payload: contacts
+    }
+}
+
+export function deleteContact(contacts){
+    return {
+        type: DELETE_CONTACT,
+        payload: contacts
     }
 }
