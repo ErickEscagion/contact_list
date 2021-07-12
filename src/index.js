@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { Provider } from 'react-redux'
 import configStore from './store/storeConfig'
+import "@fontsource/roboto";
 
 const store = configStore()
 
