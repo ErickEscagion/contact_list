@@ -2,16 +2,27 @@ import React, {useState} from 'react'
 import { connect } from 'react-redux';
 import{ Redirect } from 'react-router-dom'
 import { saveContact } from '../store/actions/crud'
-import { SnackbarProvider, useSnackbar } from 'notistack';
+
+
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const Register = ( ...props) =>{
     var data = props[0].dataRedux;
 
     const [redirectToExit, setRedirectToExit] = useState(false);
-    const { enqueueSnackbar } = useSnackbar();
+    const [alertInputName, setAlertInputName] = React.useState(false);
+    const [alertInputTelephone, setAlertInputTelephone] = React.useState(false);
+    const [alertInputSex, setAlertInputSex] = React.useState(false);
+    const [exitMSG, setExitMSG] = React.useState(false);
 
     const exit = () =>{
-        enqueueSnackbar('O cadastro não será Salvo!')
+        snackBarErrorExit();
         setTimeout(function(){ 
             setRedirectToExit(true);
             if(redirectToExit === true){
@@ -26,23 +37,35 @@ const Register = ( ...props) =>{
     };
 
     const save = () =>{
-        var variant = 'warning'
         var inputName = document.querySelector("#name").value;
-        var val = 0;
+        var valist = []
         if(inputName.length < 3){
-            enqueueSnackbar('Nome deve ter no minimo 3 Letras!', { variant })
-            val = 1;
+            valist.push(1)
         }
         var inputTelephone = document.querySelector("#telephone").value;
         if(!isValidPhone(inputTelephone)){
-            enqueueSnackbar('Telefone Invalido!', { variant })
-            val = 1;
+            valist.push(2)
         }
         if(!document.querySelector('input[name="sex"]:checked')){
-            enqueueSnackbar('Selecione um Sexo!', { variant })
-            val = 1;
+            valist.push(3)
         }
-        if( val !== 0){return}
+        //melhorar logica para exibição das mensagem em tempo melhor
+        if( valist.length !== 0){
+            for(let i =0; i < valist.length; i++){
+                if(valist[i] === 1){
+                    snackBarInputName();
+                }else if( valist[i] === 2){
+                    setTimeout(function(){ 
+                        snackBarInputTelephone();
+                    }, 4000);
+                }else if( valist[i] === 3){
+                    setTimeout(function(){ 
+                        snackBarInputSex();
+                    }, 6000);
+                }
+            }
+            return
+        }
         var inputSex = document.querySelector('input[name="sex"]:checked').value;
         var length = data.length;
         var id;
@@ -69,6 +92,28 @@ const Register = ( ...props) =>{
         }
         return null;
     }
+
+    const handleClose = () => {
+        setAlertInputName(false);
+        setAlertInputTelephone(false);
+        setAlertInputSex(false);
+    };
+
+    const snackBarInputName = () => {
+        setAlertInputName(true);
+    };
+
+    const snackBarInputTelephone = () => {
+        setAlertInputTelephone(true);
+    };
+
+    const snackBarInputSex = () => {
+        setAlertInputSex(true);
+    };
+
+    const snackBarErrorExit = () => {
+        setExitMSG(true);
+    };
 
     return (
         <>
@@ -97,6 +142,30 @@ const Register = ( ...props) =>{
                 <input type="button" value="Sair" onClick={exit}></input>
             </form>
         </div>
+
+        <Snackbar open={alertInputName} autoHideDuration={3000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="warning">
+                Nome deve ter no minimo 3 Letras!
+            </Alert>
+        </Snackbar>
+
+        <Snackbar open={alertInputTelephone} autoHideDuration={3000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="warning">
+                Telefone Invalido!
+            </Alert>
+        </Snackbar>
+
+        <Snackbar open={alertInputSex} autoHideDuration={3000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="warning">
+                Selecione um Sexo!
+            </Alert>
+        </Snackbar>
+
+        <Snackbar open={exitMSG} autoHideDuration={3000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="error">
+                O Contato não será salvo!
+            </Alert>
+        </Snackbar>
         </>
     )
 }
@@ -116,13 +185,7 @@ function mapDispatchToProps (dispatch){
     }
 }
 
-export default function IntegrationNotistack() {
-    return (
-      <SnackbarProvider maxSnack={3}>
-        <Register />
-      </SnackbarProvider>
-    );
-  }connect(
+export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(Register);
