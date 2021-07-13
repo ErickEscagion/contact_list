@@ -3,6 +3,14 @@ import{Redirect} from 'react-router-dom'
 import { connect } from 'react-redux';
 import { changeContact } from '../store/actions/crud';
 
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 const Change = (...props) =>{
 
     var selectedLine = 0;
@@ -15,10 +23,17 @@ const Change = (...props) =>{
     const [redirectToExit, setRedirectToExit] = useState(false);
     const [name, setName] = useState(props[0].dataRedux[selectedLine].name);
     const [telephone, setTelephone] = useState(props[0].dataRedux[selectedLine].telephone);
+    const [exitMSG, setExitMSG] = React.useState(false);
+
     
     const exit = () =>{
-        alert("As Alterações não serão salvas!");
-        setRedirectToExit(true);
+        snackBarErrorExit();
+        setTimeout(function(){ 
+            setRedirectToExit(true);
+            if(redirectToExit === true){
+                return <Redirect to='/'/>;
+            }
+        }, 3000);
     }
 
     const change = () =>{
@@ -55,6 +70,14 @@ const Change = (...props) =>{
         return null;
     }
 
+    const handleClose = () => {
+        setExitMSG(false);
+    };
+
+    const snackBarErrorExit = () => {
+        setExitMSG(true);
+    };
+
     return (
         <>
         {renderRedirect()}
@@ -73,6 +96,13 @@ const Change = (...props) =>{
                 <input type="button" value="Sair" onClick={exit}></input>
             </form>
         </div>
+
+        <Snackbar open={exitMSG} autoHideDuration={3000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="error">
+                    As alterações não serão Salvas!
+                </Alert>
+            </Snackbar>
+
         </>
     )
 } 
