@@ -2,15 +2,22 @@ import React, {useState} from 'react'
 import { connect } from 'react-redux';
 import{ Redirect } from 'react-router-dom'
 import { saveContact } from '../store/actions/crud'
+import { SnackbarProvider, useSnackbar } from 'notistack';
 
 const Register = ( ...props) =>{
     var data = props[0].dataRedux;
 
     const [redirectToExit, setRedirectToExit] = useState(false);
+    const { enqueueSnackbar } = useSnackbar();
 
     const exit = () =>{
-        alert("A Criação não sera salva!");
-        setRedirectToExit(true);
+        enqueueSnackbar('O cadastro não será Salvo!')
+        setTimeout(function(){ 
+            setRedirectToExit(true);
+            if(redirectToExit === true){
+                return <Redirect to='/'/>;
+            }
+        }, 3000);
     }
 
     const isValidPhone = (phone) => {
@@ -19,20 +26,23 @@ const Register = ( ...props) =>{
     };
 
     const save = () =>{
+        var variant = 'warning'
         var inputName = document.querySelector("#name").value;
+        var val = 0;
         if(inputName.length < 3){
-            alert("Nome deve ter no minimo 3 Letras!");
-            return;
+            enqueueSnackbar('Nome deve ter no minimo 3 Letras!', { variant })
+            val = 1;
         }
         var inputTelephone = document.querySelector("#telephone").value;
         if(!isValidPhone(inputTelephone)){
-            alert("Telefone Invalido!");
-            return;
+            enqueueSnackbar('Telefone Invalido!', { variant })
+            val = 1;
         }
         if(!document.querySelector('input[name="sex"]:checked')){
-            alert("Selecione um Sexo!");
-            return;
+            enqueueSnackbar('Selecione um Sexo!', { variant })
+            val = 1;
         }
+        if( val !== 0){return}
         var inputSex = document.querySelector('input[name="sex"]:checked').value;
         var length = data.length;
         var id;
@@ -106,7 +116,13 @@ function mapDispatchToProps (dispatch){
     }
 }
 
-export default connect(
+export default function IntegrationNotistack() {
+    return (
+      <SnackbarProvider maxSnack={3}>
+        <Register />
+      </SnackbarProvider>
+    );
+  }connect(
     mapStateToProps,
     mapDispatchToProps
 )(Register);
